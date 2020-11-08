@@ -43,6 +43,16 @@ describe("getdata FUNC TEST", () => {
     expect(response.responseCode).toBe(404)
     expect(response.responseMessage).toBe("Failure")
   })
+
+  it("it should fail as API error", async () => {
+    get.mockImplementation(() =>
+      Promise.reject("API error")
+    )
+    const response = await getData(requestParams1)
+    expect(typeof response).toBe("object")
+    expect(response).not.toBe(null)
+    expect(response.responseMessage).toBe("Failure")
+  })
 })
 
 const getDummyResponse = {
